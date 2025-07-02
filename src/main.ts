@@ -10,6 +10,14 @@ import {
 import { Viewport } from 'pixi-viewport';
 import { initDevtools } from '@pixi/devtools';
 import { sound } from '@pixi/sound';
+import {
+	CULL_MARGIN,
+	OVERLAY_POSITION,
+	SCALE_FACTOR,
+	TILE_WIDTH_PIXELS,
+	WORLD_SIZE,
+} from './PixiConfig.ts';
+import locations from './data/locations.json';
 
 function cull(
 	container: Container,
@@ -69,8 +77,8 @@ async function setupPixi(): Promise<[Application, Viewport]> {
 	}
 
 	const viewport = new Viewport({
-		worldHeight: WORLD_HEIGHT,
-		worldWidth: WORLD_WIDTH,
+		worldHeight: WORLD_SIZE,
+		worldWidth: WORLD_SIZE,
 		events: app.renderer.events,
 	});
 
@@ -116,11 +124,16 @@ async function loadAssets() {
 	await Assets.loadBundle('default');
 }
 
-function setupImage(viewport: Viewport) {
+function setupOverlay(viewport: Viewport) {
 	const overlay = Sprite.from('input');
-	overlay.x = 2157;
-	overlay.y = 2157;
+	overlay.eventMode = 'none';
+	overlay.scale = SCALE_FACTOR;
+	overlay.position.set(OVERLAY_POSITION, OVERLAY_POSITION);
+	overlay.alpha = 0.8;
+
 	viewport.addChild(overlay);
+	viewport.moveCenter(WORLD_SIZE / 2, WORLD_SIZE / 2);
+	viewport.scaled = 0.5;
 
 	viewport.addEventListener('wheel', () => {
 		const zoom = viewport.scaled;
@@ -128,9 +141,31 @@ function setupImage(viewport: Viewport) {
 	});
 }
 
+function addTiles(viewport: Viewport) {
+	for (const [y, row] of locations.entries()) {
+		const tileY = OVERLAY_POSITION + y * TILE_WIDTH_PIXELS;
+		for (const [x, filename] of row.entries()) {
+			const tileX = OVERLAY_POSITION + x * TILE_WIDTH_PIXELS;
+
+			const tile = Sprite.from(`screenshots/${filename}`);
+			tile.setSize(TILE_WIDTH_PIXELS);
+			tile.position.set(tileX, tileY);
+			tile.cullable = true;
+			tile.eventMode = 'static';
+			tile.cursor = 'pointer';
+			tile.on('pointerup', () => {
+				console.log(`${filename} was clicked!`);
+			});
+			viewport.addChild(tile);
+		}
+	}
+}
+
 void (async () => {
 	await loadAssets();
 	const [app, viewport] = await setupPixi();
+	addTiles(viewport);
+	setupOverlay(viewport);
 
 	const loadingContainer = document.getElementById('loading-container');
 	if (loadingContainer) {

@@ -1,5 +1,11 @@
-export const WORLD_WIDTH = 5000;
-
-export const WORLD_HEIGHT = 5000;
+export const WORLD_SIZE = 5000;
 
 export const CULL_MARGIN = 100;
+
+export const SCALE_FACTOR = 2;
+
+export const OVERLAY_WIDTH_PIXELS = SCALE_FACTOR * 686;
+
+export const TILE_WIDTH_PIXELS = SCALE_FACTOR * 98;
+
+export const OVERLAY_POSITION = WORLD_SIZE / 2 - OVERLAY_WIDTH_PIXELS / 2;

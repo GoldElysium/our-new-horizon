@@ -7,6 +7,7 @@
         "@assetpack/core": "^1.4.0",
         "@pixi/devtools": "^2.0.1",
         "@tailwindcss/vite": "^4.1.11",
+        "lit": "^3.3.0",
         "pixi-viewport": "^6.0.3",
         "pixi.js": "^8.10.2",
         "tailwindcss": "^4.1.11",
@@ -311,6 +312,8 @@
     "@pixi/devtools": ["@pixi/devtools@2.0.1", "", { "peerDependencies": { "pixi.js": "^7 || ^8" } }, "sha512-TFCqNkJoLNYHDELgQ3bKWvA33twWpoUhQB8Y+hneBdDBunRsqZ5ZzwH7+6E5eVaVn7eeLAXHs9QGRGsxM0fRlw=="],
 
     "@pixi/runner": ["@pixi/runner@7.4.3", "", {}, "sha512-TJyfp7y23u5vvRAyYhVSa7ytq0PdKSvPLXu4G3meoFh1oxTLHH6g/RIzLuxUAThPG2z7ftthuW3qWq6dRV+dhw=="],
+
+    "@pixi/sound": ["@pixi/sound@6.0.1", "", { "peerDependencies": { "pixi.js": "^8.0.0" } }, "sha512-hpFlQSScAR2L/CsEoIvDi7s1oGsu8y9Zd742Vd3982N+q3IF2vFuIfV9HN4ryjlGnhCT8yBlEgs1gp4G9Rt9TA=="],
 
     "@pkgjs/parseargs": ["@pkgjs/parseargs@0.11.0", "", {}, "sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg=="],
 

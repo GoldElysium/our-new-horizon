@@ -9,7 +9,7 @@ import {
 } from 'pixi.js';
 import { Viewport } from 'pixi-viewport';
 import { initDevtools } from '@pixi/devtools';
-import { CULL_MARGIN, WORLD_HEIGHT, WORLD_WIDTH } from './PixiConfig.ts';
+import { sound } from '@pixi/sound';
 
 function cull(
 	container: Container,
@@ -52,7 +52,7 @@ function cull(
 	);
 }
 
-async function setup(): Promise<[Application, Viewport]> {
+async function setupPixi(): Promise<[Application, Viewport]> {
 	const app = new Application();
 
 	await app.init({
@@ -107,7 +107,7 @@ async function setup(): Promise<[Application, Viewport]> {
 	return [app, viewport];
 }
 
-async function setupTextures() {
+async function loadAssets() {
 	await Assets.init({
 		basePath: '/assets',
 		manifest: '/assets/manifest.json',
@@ -129,16 +129,49 @@ function setupImage(viewport: Viewport) {
 }
 
 void (async () => {
-	await setupTextures();
-	const [app, viewport] = await setup();
+	await loadAssets();
+	const [app, viewport] = await setupPixi();
 
-	const loadingScreen = document.getElementById('loading-screen');
-	if (loadingScreen) {
-		loadingScreen.classList.add('fade-out');
-		setTimeout(() => {
-			loadingScreen.remove();
-		}, 500);
+	const loadingContainer = document.getElementById('loading-container');
+	if (loadingContainer) {
+		loadingContainer.innerHTML = 'Tap anywhere to start!';
+		const loadingScreen = document.getElementById('loading-screen');
+		if (loadingScreen) {
+			loadingScreen.classList.add('cursor-pointer');
+			loadingScreen.addEventListener('click', () => {
+				// Add fade-out effect to the loading screen
+				loadingScreen.classList.add('fade-out');
+				setTimeout(() => {
+					loadingScreen.remove();
+				}, 2000);
+
+				void Assets.loadBundle('default').then((resources) => {
+					// Initialize background music
+					const storedVolume = localStorage.getItem('storedVolume');
+					let volume = 0.05;
+					if (storedVolume) {
+						const parsed = parseFloat(storedVolume);
+						if (!isNaN(parsed)) {
+							volume = parsed;
+						}
+					}
+
+					// eslint-disable-next-line @typescript-eslint/no-unsafe-argument,@typescript-eslint/no-unsafe-member-access
+					sound.add('bgm', resources.bgm);
+					sound.disableAutoPause = true;
+					sound.volumeAll = volume;
+					// eslint-disable-next-line @typescript-eslint/no-floating-promises
+					sound.play('bgm', { loop: true });
+
+					/*// Connect the background music to the volume-control component
+					const volumeControl =
+						document.querySelector('volume-control')!;
+
+					if (volumeControl) {
+						volumeControl.backgroundMusic = sound;
+					}*/
+				});
+			});
+		}
 	}
-
-	setupImage(viewport);
 })();

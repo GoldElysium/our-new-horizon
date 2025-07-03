@@ -1,64 +1,14 @@
-import {
-	Application,
-	Bounds,
-	Rectangle,
-	type Container,
-	getGlobalBounds,
-	Assets,
-	Sprite,
-} from 'pixi.js';
+import { Application, Assets, Sprite } from 'pixi.js';
 import { Viewport } from 'pixi-viewport';
 import { initDevtools } from '@pixi/devtools';
 import { sound } from '@pixi/sound';
 import {
-	CULL_MARGIN,
 	OVERLAY_POSITION,
 	SCALE_FACTOR,
 	TILE_WIDTH_PIXELS,
 	WORLD_SIZE,
 } from './PixiConfig.ts';
 import locations from './data/locations.json';
-
-function cull(
-	container: Container,
-	view: Rectangle | Bounds,
-	skipUpdateTransform = true,
-) {
-	if (
-		container.cullable &&
-		container.measurable &&
-		container.includeInBuild
-	) {
-		const pos = container.getGlobalPosition(undefined, skipUpdateTransform);
-
-		// TODO: Bounds don't seem to properly scale? Workaround using a margin for now
-		const tempBounds = new Bounds();
-		const bounds =
-			container.cullArea ??
-			getGlobalBounds(container, skipUpdateTransform, tempBounds);
-
-		container.culled =
-			pos.x >= view.x + view.width + CULL_MARGIN ||
-			pos.y >= view.y + view.height + CULL_MARGIN ||
-			pos.x + bounds.width + CULL_MARGIN <= view.x ||
-			pos.y + bounds.height + CULL_MARGIN <= view.y;
-	} else {
-		container.culled = false;
-	}
-
-	if (
-		!container.cullableChildren ||
-		container.culled ||
-		!container.renderable ||
-		!container.measurable ||
-		!container.includeInBuild
-	)
-		return;
-
-	container.children.forEach((child) =>
-		cull(child, view, skipUpdateTransform),
-	);
-}
 
 async function setupPixi() {
 	const app = new Application();
@@ -99,15 +49,6 @@ async function setupPixi() {
 			direction: 'all',
 			underflow: 'center',
 		});
-	});
-
-	app.ticker.add(() => {
-		if (viewport.dirty) {
-			viewport.children?.forEach((child) =>
-				cull(child, app.stage.getBounds(true)),
-			);
-			viewport.dirty = false;
-		}
 	});
 
 	app.stage.addChild(viewport);
@@ -159,7 +100,6 @@ function addTiles(viewport: Viewport) {
 			const tile = Sprite.from(`screenshots/${filename}`);
 			tile.setSize(TILE_WIDTH_PIXELS);
 			tile.position.set(tileX, tileY);
-			tile.cullable = true;
 			tile.eventMode = 'static';
 			tile.cursor = 'pointer';
 			tile.on('pointerup', () => {

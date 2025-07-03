@@ -1,7 +1,5 @@
 export const WORLD_SIZE = 5000;
 
-export const CULL_MARGIN = 100;
-
 export const SCALE_FACTOR = 2;
 
 export const OVERLAY_WIDTH_PIXELS = SCALE_FACTOR * 686;

@@ -1,8 +1,65 @@
 @import "tailwindcss";
 
+@layer components {
+    button {
+        @apply bg-[#50b0de] text-white rounded-md px-4 py-3 cursor-pointer;
+    }
+}
+
 .fade-out {
     opacity: 0;
-    transition: opacity 2s ease-in-out;
+    transition: all 1s ease-in-out;
     pointer-events: none;
 }
 
+.slide-in {
+    animation: slide-in 0.5s forwards;
+    -webkit-animation: slide-in 0.5s forwards;
+}
+
+.slide-out {
+    animation: slide-out 0.5s forwards;
+    -webkit-animation: slide-out 0.5s forwards;
+}
+
+@keyframes slide-in {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(0%); }
+}
+
+@keyframes slide-out {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-100%); width: 0!important; }
+}
+
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+::-webkit-scrollbar-track {
+    @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-[#c7c2b5];
+}
+
+::-webkit-scrollbar-thumb:hover {
+    @apply bg-[#a69f92];
+}
+
+.volume-container {
+    @apply relative flex items-center gap-2 transition-all bg-[#50b0de] rounded-md p-4;
+}
+
+.volume-icon {
+    @apply cursor-pointer select-none text-white;
+}
+
+.volume-slider {
+    @apply h-1 w-full rounded bg-gray-300 accent-[#243962] transition-all;
+}
+
+.volume-container:hover .volume-icon {
+    @apply opacity-90;
+}

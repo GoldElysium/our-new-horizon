@@ -60,12 +60,12 @@ function cull(
 	);
 }
 
-async function setupPixi(): Promise<[Application, Viewport]> {
+async function setupPixi() {
 	const app = new Application();
 
 	await app.init({
 		backgroundColor: '#50b0de',
-		resizeTo: window,
+		resizeTo: document.getElementById('app')!,
 		antialias: true,
 		autoDensity: true,
 		resolution: window.devicePixelRatio,
@@ -112,7 +112,14 @@ async function setupPixi(): Promise<[Application, Viewport]> {
 
 	app.stage.addChild(viewport);
 
-	return [app, viewport];
+	const sidebar = document.querySelector('side-bar')!;
+	sidebar.onCollapse = () => {
+		setTimeout(() => {
+			app.resize();
+		}, 1);
+	};
+
+	return viewport;
 }
 
 async function loadAssets() {
@@ -142,6 +149,8 @@ function setupOverlay(viewport: Viewport) {
 }
 
 function addTiles(viewport: Viewport) {
+	const messageDisplay = document.querySelector('message-display')!;
+
 	for (const [y, row] of locations.entries()) {
 		const tileY = OVERLAY_POSITION + y * TILE_WIDTH_PIXELS;
 		for (const [x, filename] of row.entries()) {
@@ -154,7 +163,8 @@ function addTiles(viewport: Viewport) {
 			tile.eventMode = 'static';
 			tile.cursor = 'pointer';
 			tile.on('pointerup', () => {
-				console.log(`${filename} was clicked!`);
+				messageDisplay.hasMessageSelected = true;
+				messageDisplay.author = filename;
 			});
 			viewport.addChild(tile);
 		}
@@ -163,7 +173,7 @@ function addTiles(viewport: Viewport) {
 
 void (async () => {
 	await loadAssets();
-	const [app, viewport] = await setupPixi();
+	const viewport = await setupPixi();
 	addTiles(viewport);
 	setupOverlay(viewport);
 
@@ -178,7 +188,7 @@ void (async () => {
 				loadingScreen.classList.add('fade-out');
 				setTimeout(() => {
 					loadingScreen.remove();
-				}, 2000);
+				}, 50);
 
 				void Assets.loadBundle('default').then((resources) => {
 					// Initialize background music
@@ -198,13 +208,13 @@ void (async () => {
 					// eslint-disable-next-line @typescript-eslint/no-floating-promises
 					sound.play('bgm', { loop: true });
 
-					/*// Connect the background music to the volume-control component
+					// Connect the background music to the volume-control component
 					const volumeControl =
 						document.querySelector('volume-control')!;
 
 					if (volumeControl) {
 						volumeControl.backgroundMusic = sound;
-					}*/
+					}
 				});
 			});
 		}

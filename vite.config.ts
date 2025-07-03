@@ -69,4 +69,7 @@ function assetpackPlugin(): Plugin {
 
 export default defineConfig({
 	plugins: [assetpackPlugin(), tailwindcss()],
+	esbuild: {
+		target: 'es2022',
+	},
 });

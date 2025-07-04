@@ -14,19 +14,14 @@ function assetpackPlugin(): Plugin {
 				resolutions: { default: 1, low: 0.5 },
 				compression: {
 					jpg: false,
-					png: {
-						quality: 90,
-						effort: 10,
-					},
+					png: false,
 					webp: {
 						quality: 90,
 						alphaQuality: 100,
-						lossless: true,
 						effort: 6,
 					},
 					avif: {
 						quality: 75,
-						lossless: true,
 						effort: 9,
 					},
 				},

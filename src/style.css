@@ -1,9 +1,7 @@
 @import "tailwindcss";
 
-@layer components {
-    button {
-        @apply bg-[#50b0de] text-white rounded-md px-4 py-3 cursor-pointer;
-    }
+.btn {
+    @apply bg-[#50b0de] text-white rounded-md px-4 py-3 cursor-pointer;
 }
 
 .fade-out {

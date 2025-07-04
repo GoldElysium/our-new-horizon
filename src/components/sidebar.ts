@@ -24,14 +24,34 @@ export class Sidebar extends LitElement {
 			<div class="relative h-full bg-[#243962]">
 				<div
 					class="${this.collapsed ? 'slide-out w-0!' : (
-						'slide-in w-[26rem] p-8'
-					)} flex h-full flex-col gap-8 overflow-hidden"
+						'slide-in w-72 lg:w-[26rem] p-8'
+					)} flex h-full max-h-max flex-col gap-8 overflow-hidden contain-content"
 				>
 					<div class="flex justify-between">
-						<button>Submissions</button>
-						<button>About</button>
+						<button
+							class="btn"
+							@click="${() => {
+								document
+									.querySelector('submissions-dialog')!
+									.showModal();
+							}}"
+						>
+							Submissions
+						</button>
+						<button
+							class="btn"
+							@click="${() => {
+								document
+									.querySelector('about-dialog')!
+									.showModal();
+							}}"
+						>
+							About
+						</button>
 					</div>
-					<message-display class="grow"></message-display>
+					<message-display
+						class="h-full min-h-0 grow"
+					></message-display>
 					<volume-control></volume-control>
 				</div>
 				<button

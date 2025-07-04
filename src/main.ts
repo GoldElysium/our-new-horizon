@@ -9,6 +9,7 @@ import {
 	WORLD_SIZE,
 } from './PixiConfig.ts';
 import locations from './data/locations.json';
+import messages from './data/messages.json';
 
 async function setupPixi() {
 	const app = new Application();
@@ -91,20 +92,33 @@ function setupOverlay(viewport: Viewport) {
 
 function addTiles(viewport: Viewport) {
 	const messageDisplay = document.querySelector('message-display')!;
+	let unpickedMessages = [...messages];
 
-	for (const [y, row] of locations.entries()) {
-		const tileY = OVERLAY_POSITION + y * TILE_WIDTH_PIXELS;
-		for (const [x, filename] of row.entries()) {
-			const tileX = OVERLAY_POSITION + x * TILE_WIDTH_PIXELS;
+	for (const [row, rowContent] of locations.entries()) {
+		const y = OVERLAY_POSITION + row * TILE_WIDTH_PIXELS;
+
+		for (const [col, filename] of rowContent.entries()) {
+			const messageIdx = Math.floor(
+				Math.random() * (unpickedMessages.length - 1),
+			);
+			const message = unpickedMessages[messageIdx];
+			unpickedMessages.splice(messageIdx, 1);
+
+			if (unpickedMessages.length === 0) {
+				unpickedMessages = [...messages];
+			}
+
+			const x = OVERLAY_POSITION + col * TILE_WIDTH_PIXELS;
 
 			const tile = Sprite.from(`screenshots/${filename}`);
 			tile.setSize(TILE_WIDTH_PIXELS);
-			tile.position.set(tileX, tileY);
+			tile.position.set(x, y);
 			tile.eventMode = 'static';
 			tile.cursor = 'pointer';
 			tile.on('pointerup', () => {
 				messageDisplay.hasMessageSelected = true;
-				messageDisplay.author = filename;
+				messageDisplay.message = message.message;
+				messageDisplay.artwork = message.artwork;
 			});
 			viewport.addChild(tile);
 		}

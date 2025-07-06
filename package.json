@@ -21,6 +21,7 @@
   "dependencies": {
     "@assetpack/core": "^1.4.0",
     "@pixi/devtools": "^2.0.1",
+    "@pixi/gif": "^3.0.1",
     "@pixi/sound": "^6.0.1",
     "@tailwindcss/vite": "^4.1.11",
     "lit": "^3.3.0",

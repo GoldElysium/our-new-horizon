@@ -1,4 +1,11 @@
-import { Application, Assets, Sprite } from 'pixi.js';
+import '@pixi/gif';
+import {
+	Application,
+	Assets,
+	Container,
+	FederatedPointerEvent,
+	Sprite,
+} from 'pixi.js';
 import { Viewport } from 'pixi-viewport';
 import { initDevtools } from '@pixi/devtools';
 import { sound } from '@pixi/sound';
@@ -10,6 +17,7 @@ import {
 } from './PixiConfig.ts';
 import locations from './data/locations.json';
 import messages from './data/messages.json';
+import { GifSprite } from 'pixi.js/gif';
 
 async function setupPixi() {
 	const app = new Application();
@@ -61,7 +69,50 @@ async function setupPixi() {
 		}, 1);
 	};
 
+	setupCursor(app);
+
 	return viewport;
+}
+
+function setupCursor(app: Application) {
+	const cursor = GifSprite.from('cursor');
+	cursor.position.set(-415, 0);
+	cursor.setSize(96);
+
+	const pointer = GifSprite.from('cursor-pointer');
+	pointer.position.set(-425, 0);
+	pointer.setSize(96);
+	pointer.visible = false;
+
+	const cursorContainer = new Container();
+	cursorContainer.eventMode = 'none';
+
+	app.stage.addChild(cursorContainer);
+	cursorContainer.addChild(cursor);
+	cursorContainer.addChild(pointer);
+
+	app.renderer.events.cursorStyles.default = () => {
+		cursor.visible = true;
+		pointer.visible = false;
+	};
+	app.renderer.events.cursorStyles.pointer = () => {
+		cursor.visible = false;
+		pointer.visible = true;
+	};
+
+	app.stage.eventMode = 'dynamic';
+
+	let x = 0;
+	let y = 0;
+
+	app.stage.on('pointermove', (e: FederatedPointerEvent) => {
+		x = e.x;
+		y = e.y;
+	});
+
+	app.ticker.add(() => {
+		cursorContainer.position.set(x, y);
+	});
 }
 
 async function loadAssets() {

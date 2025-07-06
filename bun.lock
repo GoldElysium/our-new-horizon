@@ -6,6 +6,7 @@
       "dependencies": {
         "@assetpack/core": "^1.4.0",
         "@pixi/devtools": "^2.0.1",
+        "@pixi/gif": "^3.0.1",
         "@pixi/sound": "^6.0.1",
         "@tailwindcss/vite": "^4.1.11",
         "lit": "^3.3.0",
@@ -315,6 +316,8 @@
     "@pixi/colord": ["@pixi/colord@2.9.6", "", {}, "sha512-nezytU2pw587fQstUu1AsJZDVEynjskwOL+kibwcdxsMBFqPsFFNA7xl0ii/gXuDi6M0xj3mfRJj8pBSc2jCfA=="],
 
     "@pixi/devtools": ["@pixi/devtools@2.0.1", "", { "peerDependencies": { "pixi.js": "^7 || ^8" } }, "sha512-TFCqNkJoLNYHDELgQ3bKWvA33twWpoUhQB8Y+hneBdDBunRsqZ5ZzwH7+6E5eVaVn7eeLAXHs9QGRGsxM0fRlw=="],
+
+    "@pixi/gif": ["@pixi/gif@3.0.1", "", { "peerDependencies": { "pixi.js": "^8.0.0" } }, "sha512-oGl0nkbFAe1vaRLyIvGbJc3fcIrS8vF1E00cwjiV+9f1pYe072D+yijJxHsgYnXs6jdzERh+D0MqSrEag0jRzg=="],
 
     "@pixi/runner": ["@pixi/runner@7.4.3", "", {}, "sha512-TJyfp7y23u5vvRAyYhVSa7ytq0PdKSvPLXu4G3meoFh1oxTLHH6g/RIzLuxUAThPG2z7ftthuW3qWq6dRV+dhw=="],
 

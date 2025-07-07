@@ -7,6 +7,9 @@ export class MessageDisplay extends LitElement {
 	accessor hasMessageSelected = false;
 
 	@property()
+	accessor author = '';
+
+	@property()
 	accessor message = '';
 
 	@property()
@@ -20,8 +23,9 @@ export class MessageDisplay extends LitElement {
 		return this.hasMessageSelected ?
 				html`
 					<div
-						class="h-full max-h-full overflow-y-auto rounded-md bg-[#50b0de] p-4 text-white"
+						class="h-full max-h-full overflow-y-auto rounded-md bg-[#50b0de] p-4 text-lg text-white"
 					>
+						<b class="text-xl font-bold">From: ${this.author}</b>
 						<p>${this.message}</p>
 						${this.artwork ?
 							html`

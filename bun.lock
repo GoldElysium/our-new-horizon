@@ -5,6 +5,7 @@
       "name": "saba-debut",
       "dependencies": {
         "@assetpack/core": "^1.4.0",
+        "@fontsource-variable/texturina": "^5.2.6",
         "@pixi/devtools": "^2.0.1",
         "@pixi/gif": "^3.0.1",
         "@pixi/sound": "^6.0.1",
@@ -124,6 +125,8 @@
     "@ffmpeg-installer/win32-ia32": ["@ffmpeg-installer/win32-ia32@4.1.0", "", { "os": "win32", "cpu": "ia32" }, "sha512-FV2D7RlaZv/lrtdhaQ4oETwoFUsUjlUiasiZLDxhEUPdNDWcH1OU9K1xTvqz+OXLdsmYelUDuBS/zkMOTtlUAw=="],
 
     "@ffmpeg-installer/win32-x64": ["@ffmpeg-installer/win32-x64@4.1.0", "", { "os": "win32", "cpu": "x64" }, "sha512-Drt5u2vzDnIONf4ZEkKtFlbvwj6rI3kxw1Ck9fpudmtgaZIHD4ucsWB2lCZBXRxJgXR+2IMSti+4rtM4C4rXgg=="],
+
+    "@fontsource-variable/texturina": ["@fontsource-variable/texturina@5.2.6", "", {}, "sha512-xddYCcLQBNzfJEFXWl06laC52BgE+ZokTS1wowEAPcx+4scHGCrQGqw5g4t61ujqZhfsc17w272bRPLcx7ouaQ=="],
 
     "@gpu-tex-enc/astc": ["@gpu-tex-enc/astc@4.7.1", "", { "optionalDependencies": { "cpu-features": "^0.0.10" }, "bin": { "astcenc-linux-x64-avx2": "bin/linux-x64/astcenc-avx2", "astcenc-linux-x64-sse2": "bin/linux-x64/astcenc-sse2", "astcenc-linux-x64-sse4.1": "bin/linux-x64/astcenc-sse4.1", "astcenc-win32-x64-avx2": "bin/win32-x64/astcenc-avx2.exe", "astcenc-win32-x64-sse2": "bin/win32-x64/astcenc-sse2.exe", "astcenc-win32-x64-sse4.1": "bin/win32-x64/astcenc-sse4.1.exe", "astcenc-win32-arm64-avx2": "bin/win32-arm64/astcenc-neon.exe", "astcenc-win32-arm64-sse2": "bin/win32-arm64/astcenc-neon.exe", "astcenc-win32-arm64-sse4.1": "bin/win32-arm64/astcenc-neon.exe", "astcenc-darwin-x64-avx2": "bin/darwin/astcenc", "astcenc-darwin-x64-sse2": "bin/darwin/astcenc", "astcenc-darwin-x64-sse4.1": "bin/darwin/astcenc", "astcenc-darwin-arm64-avx2": "bin/darwin/astcenc", "astcenc-darwin-arm64-sse2": "bin/darwin/astcenc", "astcenc-darwin-arm64-sse4.1": "bin/darwin/astcenc" } }, "sha512-ku4RvhQ+qp/k0bp8FbUvJGxfn/nf4FN0tMngPCyDiXbzzSeQip0QausfUt6gILlFGZHtlO+zO7SNkkacDJN3Rw=="],
 

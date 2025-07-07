@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+body {
+    font-family: 'Texturina Variable', serif;
+}
+
 .btn {
     @apply bg-[#50b0de] text-white rounded-md px-4 py-3 cursor-pointer;
 }

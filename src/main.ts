@@ -1,4 +1,5 @@
 import '@pixi/gif';
+import '@fontsource-variable/texturina';
 import {
 	Application,
 	Assets,
@@ -182,7 +183,7 @@ void (async () => {
 	addTiles(viewport);
 	setupOverlay(viewport);
 
-	const loadingContainer = document.getElementById('loading-container');
+	const loadingContainer = document.getElementById('loading-screen-text');
 	if (loadingContainer) {
 		loadingContainer.innerHTML = 'Tap anywhere to start!';
 		const loadingScreen = document.getElementById('loading-screen');

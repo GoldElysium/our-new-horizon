@@ -40,7 +40,7 @@ async function setupPixi() {
 
 	const viewport = new Viewport({
 		worldHeight: WORLD_SIZE,
-		worldWidth: WORLD_SIZE,
+		worldWidth: WORLD_SIZE * 1.2,
 		events: app.renderer.events,
 	});
 
@@ -53,7 +53,7 @@ async function setupPixi() {
 			direction: 'all',
 			underflow: 'center',
 		})
-		.clampZoom({ maxScale: 1, minScale: 0.25 });
+		.clampZoom({ maxScale: 1, minScale: 0.15 });
 
 	window.addEventListener('resize', () => {
 		viewport.resize();
@@ -142,7 +142,7 @@ function setupOverlay(viewport: Viewport) {
 
 	viewport.addEventListener('wheel', () => {
 		const zoom = viewport.scaled;
-		overlay.alpha = 0.8 - zoom + 0.25;
+		overlay.alpha = Math.min(0.8 - zoom + 0.25, 1);
 	});
 }
 

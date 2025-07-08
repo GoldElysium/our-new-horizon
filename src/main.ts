@@ -11,7 +11,9 @@ import { Viewport } from 'pixi-viewport';
 import { initDevtools } from '@pixi/devtools';
 import { sound } from '@pixi/sound';
 import {
-	OVERLAY_POSITION,
+	OVERLAY_POSITION_X,
+	OVERLAY_POSITION_Y,
+	OVERLAY_WIDTH_PIXELS,
 	SCALE_FACTOR,
 	TILE_WIDTH_PIXELS,
 	WORLD_SIZE,
@@ -51,7 +53,7 @@ async function setupPixi() {
 			direction: 'all',
 			underflow: 'center',
 		})
-		.clampZoom({ maxScale: 1, minScale: 0.5 });
+		.clampZoom({ maxScale: 1, minScale: 0.25 });
 
 	window.addEventListener('resize', () => {
 		viewport.resize();
@@ -76,6 +78,8 @@ async function setupPixi() {
 }
 
 function setupCursor(app: Application) {
+	if (matchMedia('(pointer:coarse)').matches) return;
+
 	const cursor = GifSprite.from('cursor');
 	cursor.position.set(-415, 0);
 	cursor.setSize(96);
@@ -129,7 +133,7 @@ function setupOverlay(viewport: Viewport) {
 	const overlay = Sprite.from('input');
 	overlay.eventMode = 'none';
 	overlay.scale = SCALE_FACTOR;
-	overlay.position.set(OVERLAY_POSITION, OVERLAY_POSITION);
+	overlay.position.set(OVERLAY_POSITION_X, OVERLAY_POSITION_Y);
 	overlay.alpha = 0.8;
 
 	viewport.addChild(overlay);
@@ -138,7 +142,7 @@ function setupOverlay(viewport: Viewport) {
 
 	viewport.addEventListener('wheel', () => {
 		const zoom = viewport.scaled;
-		overlay.alpha = 0.8 - zoom + 0.5;
+		overlay.alpha = 0.8 - zoom + 0.25;
 	});
 }
 
@@ -147,7 +151,7 @@ function addTiles(viewport: Viewport) {
 	let unpickedMessages = [...messages];
 
 	for (const [row, rowContent] of locations.entries()) {
-		const y = OVERLAY_POSITION + row * TILE_WIDTH_PIXELS;
+		const y = OVERLAY_POSITION_Y + row * TILE_WIDTH_PIXELS;
 
 		for (const [col, filename] of rowContent.entries()) {
 			const messageIdx = Math.floor(
@@ -160,15 +164,16 @@ function addTiles(viewport: Viewport) {
 				unpickedMessages = [...messages];
 			}
 
-			const x = OVERLAY_POSITION + col * TILE_WIDTH_PIXELS;
+			const x = OVERLAY_POSITION_X + col * TILE_WIDTH_PIXELS;
 
-			const tile = Sprite.from(`screenshots/${filename}`);
+			const tile = Sprite.from(filename);
 			tile.setSize(TILE_WIDTH_PIXELS);
 			tile.position.set(x, y);
 			tile.eventMode = 'static';
 			tile.cursor = 'pointer';
 			tile.on('pointerup', () => {
 				messageDisplay.hasMessageSelected = true;
+				messageDisplay.author = message.author;
 				messageDisplay.message = message.message;
 				messageDisplay.artwork = message.artwork;
 			});
@@ -182,6 +187,14 @@ void (async () => {
 	const viewport = await setupPixi();
 	addTiles(viewport);
 	setupOverlay(viewport);
+
+	const titleBanner = Sprite.from('title');
+	titleBanner.anchor.set(0.5, 0);
+	titleBanner.position.set(
+		OVERLAY_POSITION_X + OVERLAY_WIDTH_PIXELS / 2,
+		OVERLAY_POSITION_Y - 400,
+	);
+	viewport.addChild(titleBanner);
 
 	const loadingContainer = document.getElementById('loading-screen-text');
 	if (loadingContainer) {

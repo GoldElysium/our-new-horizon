@@ -1,11 +1,21 @@
 @import "tailwindcss";
 
+@utility cursor-pointer {
+    cursor: url("/cursor-pointer.webp"), url("/cursor-pointer.png"), pointer;
+}
+
 body {
     font-family: 'Texturina Variable', serif;
+    cursor: url("/cursor-default.webp"), url("/cursor-default.png"), auto;
+}
+
+a, button {
+    cursor: url("/cursor-pointer.webp"), url("/cursor-pointer.png"), pointer;
 }
 
 .btn {
-    @apply bg-[#50b0de] text-white rounded-md px-4 py-3 cursor-pointer;
+    @apply bg-[#50b0de] text-white rounded-md px-4 py-3;
+
 }
 
 .fade-out {

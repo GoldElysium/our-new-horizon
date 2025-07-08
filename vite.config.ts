@@ -28,6 +28,11 @@ function assetpackPlugin(): Plugin {
 				texturePacker: {
 					texturePacker: {
 						removeFileExtension: true,
+						width: 65536,
+						height: 65536,
+					},
+					resolutionOptions: {
+						maximumTextureSize: 65536,
 					},
 				},
 				audio: {},

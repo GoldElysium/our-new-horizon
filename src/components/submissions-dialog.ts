@@ -52,8 +52,11 @@ export class SubmissionsDialog extends LitElement {
 							All Messages
 						</h1>
 						${messages.map(
-							({ message, artwork }) => html`
+							({ author, message, artwork }) => html`
 								<div class="rounded-lg bg-[#243962] p-6">
+									<b class="text-xl font-bold">
+										From: ${author}
+									</b>
 									<p>${message}</p>
 									${artwork &&
 									html`

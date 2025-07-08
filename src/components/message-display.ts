@@ -13,7 +13,7 @@ export class MessageDisplay extends LitElement {
 	accessor message = '';
 
 	@property()
-	accessor artwork: null | string = null;
+	accessor artwork: undefined | string = undefined;
 
 	protected createRenderRoot(): HTMLElement | DocumentFragment {
 		return this;

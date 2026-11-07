@@ -1,5 +1,6 @@
 {
   "lockfileVersion": 1,
+  "configVersion": 0,
   "workspaces": {
     "": {
       "name": "saba-debut",
@@ -11,7 +12,7 @@
         "@pixi/sound": "^6.0.1",
         "@tailwindcss/vite": "^4.1.11",
         "lit": "^3.3.0",
-        "pixi-viewport": "^6.0.3",
+        "pixi-viewport": "^7.0.0",
         "pixi.js": "^8.11.0",
         "tailwindcss": "^4.1.11",
       },
@@ -986,7 +987,7 @@
 
     "pixelmatch": ["pixelmatch@4.0.2", "", { "dependencies": { "pngjs": "^3.0.0" }, "bin": { "pixelmatch": "bin/pixelmatch" } }, "sha512-J8B6xqiO37sU/gkcMglv6h5Jbd9xNER7aHzpfRdNmV4IbQBzBpe4l9XmbG+xPF/znacgu2jfEw+wHffaq/YkXA=="],
 
-    "pixi-viewport": ["pixi-viewport@6.0.3", "", { "peerDependencies": { "pixi.js": ">=8" } }, "sha512-2+qPJ0/n+8hQYhWvY+795+x9y3MiUrCOWacK0DY53whowWaGdx9iDocy7z1pBwjkZhC52YvrJQuZKK0sdVLtBw=="],
+    "pixi-viewport": ["pixi-viewport@7.0.1", "", { "peerDependencies": { "pixi.js": ">=8" } }, "sha512-Pm85vBIqqUkSDS8KfOR+GirpR8gYIA/FRJgdPbrU3qx2imkod90GV64ycgO6v+mvfuUWYQICXYdWgQKHihBkoA=="],
 
     "pixi.js": ["pixi.js@8.11.0", "", { "dependencies": { "@pixi/colord": "^2.9.6", "@types/css-font-loading-module": "^0.0.12", "@types/earcut": "^3.0.0", "@webgpu/types": "^0.1.40", "@xmldom/xmldom": "^0.8.10", "earcut": "^3.0.1", "eventemitter3": "^5.0.1", "gifuct-js": "^2.1.2", "ismobilejs": "^1.1.1", "parse-svg-path": "^0.1.2" } }, "sha512-dyuThzncsgEgJZnvd/A/5x6IkUERbK+phXqUQrI+0C6WE+8xqGH5VChRTLecemhgZF0kQ+gZOM3tJTX9937xpg=="],
 
